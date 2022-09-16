@@ -1,4 +1,4 @@
-package com.anasantanapedrosaprdro.dassblogs.DTOs;
+package com.anasantanapedrosaprdro.dassblogs.DTOs.categoriaDTO;
 
 import javax.validation.constraints.NotBlank;
 import java.util.Objects;

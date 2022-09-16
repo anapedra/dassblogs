@@ -1,4 +1,4 @@
-package com.anasantanapedrosaprdro.dassblogs.DTOs;
+package com.anasantanapedrosaprdro.dassblogs.DTOs.respostaDTO;
 
 import com.anasantanapedrosaprdro.dassblogs.model.Comentario;
 import javax.validation.constraints.NotBlank;

@@ -1,4 +1,4 @@
-package com.anasantanapedrosaprdro.dassblogs.DTOs;
+package com.anasantanapedrosaprdro.dassblogs.DTOs.postDTO;
 
 import com.anasantanapedrosaprdro.dassblogs.model.Categoria;
 import com.anasantanapedrosaprdro.dassblogs.model.Comentario;
