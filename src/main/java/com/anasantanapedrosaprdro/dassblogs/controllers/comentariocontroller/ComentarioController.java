@@ -29,8 +29,8 @@ public class ComentarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(comentarioService.seveCoentario(comentario));
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Object> findById(@PathVariable(value = "id") Long id){
-        Optional<Comentario>comentario=comentarioService.findById(id);
+    public ResponseEntity<Comentario> findById(@PathVariable(value = "id") Long id){
+        Comentario comentario=comentarioService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(comentario);
     }
     @GetMapping

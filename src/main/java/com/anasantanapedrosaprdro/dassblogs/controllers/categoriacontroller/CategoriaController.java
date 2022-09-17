@@ -28,8 +28,8 @@ public class CategoriaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(categoriaService.savarCategoria(categoria));
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Object> findById(@PathVariable(value = "id") Long id){
-        Optional<Categoria> categoria=categoriaService.findByid(id);
+    public ResponseEntity<Categoria> findById(@PathVariable(value = "id") Long id){
+        Categoria categoria=categoriaService.findByid(id);
         return ResponseEntity.status(HttpStatus.OK).body(categoria);
     }
     @GetMapping

@@ -2,6 +2,8 @@ package com.anasantanapedrosaprdro.dassblogs.services.postservice;
 
 import com.anasantanapedrosaprdro.dassblogs.model.Post;
 import com.anasantanapedrosaprdro.dassblogs.repositorys.postrepository.PostRepository;
+import com.anasantanapedrosaprdro.dassblogs.services.exeptions.EntityNotFoundExcepion;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -23,8 +25,9 @@ public class PostService {
         post.setDataPost(LocalDateTime.now(ZoneId.of("UTC")));
       return    postRepository.save(post);
     }
-    public Optional<Post> findById(Long id){
-        return postRepository.findById(id);
+    public Post findById(Long id){
+        return postRepository.findById(id).orElseThrow(
+                ()-> new EntityNotFoundExcepion("Id "+id+" not found"));
     }
     public Page<Post> findAll(Pageable pageable){
         Page<Post>posts=postRepository.findAll(pageable);
@@ -32,11 +35,14 @@ public class PostService {
     }
     @Transactional
     public Post atualizarPost(Long id,Post post){
+        Post postar= findById(id);
+        BeanUtils.copyProperties(post,postar,"id");
         post.setId(id);
-        return postRepository.save(post);
+        return postRepository.save(postar);
     }
     @Transactional
     public void dalatarPost(Long id){
+        findById(id);
         postRepository.deleteById(id);
     }
 }

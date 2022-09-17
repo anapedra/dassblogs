@@ -11,6 +11,7 @@ public class ComentarioDTO {
     @NotBlank
     private String texto;
     private Post post;
+
     private List<Respota> respotas=new ArrayList<>();
 
     public ComentarioDTO(){

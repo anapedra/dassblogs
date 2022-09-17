@@ -29,8 +29,8 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.CREATED).body(postService.savePost(post));
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Object> findById(@PathVariable(value = "id") Long id){
-      Optional<Post> post=postService.findById(id);
+    public ResponseEntity<Post> findById(@PathVariable(value = "id") Long id){
+      Post post=postService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(post);
     }
     @GetMapping
@@ -43,7 +43,7 @@ public class PostController {
         var post=new Post();
         BeanUtils.copyProperties(postDTO,post);
         postService.atualizarPost(id,post);
-        return ResponseEntity.status(HttpStatus.CREATED).body(post);
+        return ResponseEntity.status(HttpStatus.CREATED).body(postService.savePost(post));
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletarPost(@PathVariable(value = "id") Long id){

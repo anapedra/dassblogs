@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*",maxAge = 3600)
@@ -25,11 +24,11 @@ public class RespostaController {
     public ResponseEntity<Object> salvarResposta(@RequestBody @Valid RespostaDTO respostaDTO){
         var resposta = new Respota();
         BeanUtils.copyProperties(respostaDTO,resposta);
-        return ResponseEntity.status(HttpStatus.CREATED).body(resposta);
+        return ResponseEntity.status(HttpStatus.CREATED).body(respostaService.savarResposta(resposta));
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Object> findById(@PathVariable(value = "id") Long id){
-        Optional<Respota> respota=respostaService.findById(id);
+    public ResponseEntity<Respota> findById(@PathVariable(value = "id") Long id){
+        Respota respota=respostaService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(respota);
     }
     @GetMapping

@@ -2,6 +2,8 @@ package com.anasantanapedrosaprdro.dassblogs.services.comentarioservice;
 
 import com.anasantanapedrosaprdro.dassblogs.model.Comentario;
 import com.anasantanapedrosaprdro.dassblogs.repositorys.comentariorepository.ComentarioRepository;
+import com.anasantanapedrosaprdro.dassblogs.services.exeptions.EntityNotFoundExcepion;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -23,8 +25,10 @@ public class ComentarioService {
         comentario.setDataComentario(LocalDateTime.now(ZoneId.of("UTC")));
         return comentarioRepository.save(comentario);
     }
-    public Optional<Comentario> findById(Long id){
-        return comentarioRepository.findById(id);
+    public Comentario findById(Long id){
+      Optional<Comentario> comentario=comentarioRepository.findById(id);
+      return comentario.orElseThrow(
+              ()->new EntityNotFoundExcepion("Id "+id+" not found"));
     }
     public Page<Comentario> findAll(Pageable pageable){
         Page<Comentario>comentarios=comentarioRepository.findAll(pageable);
@@ -32,11 +36,14 @@ public class ComentarioService {
     }
     @Transactional
     public Comentario atualizarComentario(Long id,Comentario comentario){
+        Comentario comenta=findById(id);
+        BeanUtils.copyProperties(comentario,comenta,"id");
         comentario.setId(id);
         return comentarioRepository.save(comentario);
     }
     @Transactional
     public void delatarComentario(Long id){
+        findById(id);
         comentarioRepository.deleteById(id);
     }
 }
