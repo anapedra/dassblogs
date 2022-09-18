@@ -8,10 +8,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class ComentarioDTO {
-    @NotBlank
+
     private String texto;
     private Post post;
-
     private List<Respota> respotas=new ArrayList<>();
 
     public ComentarioDTO(){

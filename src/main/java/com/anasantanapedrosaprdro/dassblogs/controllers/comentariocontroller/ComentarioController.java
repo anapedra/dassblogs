@@ -33,11 +33,13 @@ public class ComentarioController {
         Comentario comentario=comentarioService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(comentario);
     }
+
     @GetMapping
     public ResponseEntity<Page<Comentario>> findAll(Pageable pageable){
         Page<Comentario> comentarios=comentarioService.findAll(pageable);
         return ResponseEntity.status(HttpStatus.OK).body(comentarios);
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizarComentario(@PathVariable(value = "id") Long id,@RequestBody @Valid ComentarioDTO comentarioDTO){
         var comentario=new Comentario();

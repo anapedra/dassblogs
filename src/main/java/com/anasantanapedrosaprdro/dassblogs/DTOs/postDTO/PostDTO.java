@@ -12,7 +12,6 @@ public class PostDTO {
     private String autor;
     @NotBlank
     private String titulo;
-    @NotBlank
     private String texto;
     private Categoria categoria;
     private List<Comentario> comentarios=new ArrayList<>();

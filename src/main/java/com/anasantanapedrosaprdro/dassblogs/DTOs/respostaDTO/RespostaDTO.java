@@ -1,11 +1,11 @@
 package com.anasantanapedrosaprdro.dassblogs.DTOs.respostaDTO;
 
 import com.anasantanapedrosaprdro.dassblogs.model.Comentario;
-import javax.validation.constraints.NotBlank;
+
 import java.util.Objects;
 
 public class RespostaDTO {
-    @NotBlank
+
     private String texto;
     private Comentario comentario;
 

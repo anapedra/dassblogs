@@ -12,7 +12,7 @@ public class Respota implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Lob
+    @Column
     private String texto;
     @Column
     private LocalDateTime dataResposta;
