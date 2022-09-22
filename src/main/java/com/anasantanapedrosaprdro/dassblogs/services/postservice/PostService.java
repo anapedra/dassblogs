@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Optional;
 
 @Service
 public class PostService {
@@ -44,5 +43,11 @@ public class PostService {
     public void dalatarPost(Long id){
         findById(id);
         postRepository.deleteById(id);
+    }
+
+
+    public Page<Post> searchDataPost(LocalDateTime minDataPost, LocalDateTime maxDataPost, Pageable pageable) {
+        Page<Post> posts=postRepository.searchPost(minDataPost,maxDataPost,pageable);
+        return posts;
     }
 }

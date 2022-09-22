@@ -1,6 +1,7 @@
 package com.anasantanapedrosaprdro.dassblogs.services.comentarioservice;
 
 import com.anasantanapedrosaprdro.dassblogs.model.Comentario;
+import com.anasantanapedrosaprdro.dassblogs.model.Post;
 import com.anasantanapedrosaprdro.dassblogs.repositorys.comentariorepository.ComentarioRepository;
 import com.anasantanapedrosaprdro.dassblogs.services.exeptions.EntityNotFoundExcepion;
 import org.springframework.beans.BeanUtils;
@@ -46,4 +47,5 @@ public class ComentarioService {
         findById(id);
         comentarioRepository.deleteById(id);
     }
+
 }

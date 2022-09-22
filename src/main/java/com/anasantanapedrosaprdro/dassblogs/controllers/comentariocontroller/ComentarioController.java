@@ -2,6 +2,7 @@ package com.anasantanapedrosaprdro.dassblogs.controllers.comentariocontroller;
 
 import com.anasantanapedrosaprdro.dassblogs.DTOs.comentarioDTO.ComentarioDTO;
 import com.anasantanapedrosaprdro.dassblogs.model.Comentario;
+import com.anasantanapedrosaprdro.dassblogs.model.Post;
 import com.anasantanapedrosaprdro.dassblogs.services.comentarioservice.ComentarioService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
@@ -11,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Optional;
+import java.time.LocalDateTime;
 
 @RestController
 @CrossOrigin(origins = "*",maxAge = 3600)
@@ -52,4 +53,5 @@ public class ComentarioController {
         comentarioService.delatarComentario(id);
         return ResponseEntity.status(HttpStatus.OK).body("Post delatado com sucesso");
     }
+
 }

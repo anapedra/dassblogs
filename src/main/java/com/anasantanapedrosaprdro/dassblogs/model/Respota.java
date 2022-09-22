@@ -20,6 +20,8 @@ public class Respota implements Serializable {
     @JoinColumn(name = "idComentario")
     private Comentario comentario;
 
+
+
     public Respota(){
     }
 

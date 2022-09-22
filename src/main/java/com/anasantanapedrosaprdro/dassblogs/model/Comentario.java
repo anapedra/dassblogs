@@ -21,7 +21,7 @@ public class Comentario implements Serializable {
     @ManyToOne
     @JoinColumn(name = "idPost")
     private Post post;
-    @OneToMany(mappedBy = "comentario")
+    @OneToMany(cascade = {CascadeType.REFRESH},fetch = FetchType.LAZY)
     private List<Respota>respotas=new ArrayList<>();
 
     public Comentario(){

@@ -10,7 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.NamedStoredProcedureQueries;
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @RestController
@@ -50,4 +52,11 @@ public class PostController {
         postService.dalatarPost(id);
         return ResponseEntity.status(HttpStatus.OK).body("Post delatado com sucesso!");
     }
+    @GetMapping(value = "/searchdata")
+    public ResponseEntity<Page<Post>> searchData(@RequestParam(defaultValue = "2022-01-18T22:36:38Z")LocalDateTime minDataPost,
+                                                 @RequestParam(defaultValue = "2500-09-18T22:36:38Z")LocalDateTime maxDataPost,Pageable pageable){
+        Page<Post> posts=postService.searchDataPost(minDataPost,maxDataPost,pageable);
+        return ResponseEntity.status(HttpStatus.OK).body(posts);
+    }
+
 }
