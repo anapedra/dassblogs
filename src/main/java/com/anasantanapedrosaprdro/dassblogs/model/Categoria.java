@@ -1,9 +1,11 @@
 package com.anasantanapedrosaprdro.dassblogs.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "categoria_tb")
@@ -16,6 +18,9 @@ public class Categoria implements Serializable {
     private String nome;
     @Column
     private LocalDateTime dataCategoria;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "categorias")
+    private Set<Post> posts=new HashSet<>();
 
     public Categoria(){
     }
