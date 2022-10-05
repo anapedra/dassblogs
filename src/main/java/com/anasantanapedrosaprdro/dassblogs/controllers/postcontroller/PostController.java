@@ -52,11 +52,19 @@ public class PostController {
         postService.dalatarPost(id);
         return ResponseEntity.status(HttpStatus.OK).body("Post delatado com sucesso!");
     }
+    /*
     @GetMapping(value = "/searchdata")
-    public ResponseEntity<Page<Post>> searchData(@RequestParam(defaultValue = "2022-01-18T22:36:38Z")LocalDateTime minDataPost,
-                                                 @RequestParam(defaultValue = "2500-09-18T22:36:38Z")LocalDateTime maxDataPost,Pageable pageable){
-        Page<Post> posts=postService.searchDataPost(minDataPost,maxDataPost,pageable);
+    public ResponseEntity<Page<Post>> searchData(@RequestParam(defaultValue = "2022-01-18T22:36:38Z")String minDataPost,
+                                                 @RequestParam(defaultValue = "2500-09-18T22:36:38Z")String maxDataPost,Pageable pageable){
+        Page<Post> posts=postService.findByCreatedDateBetween(minDataPost,maxDataPost,pageable);
         return ResponseEntity.status(HttpStatus.OK).body(posts);
     }
+    @GetMapping(value = "/findByPeriod/{minDataPos}/{maxDataPostr}")
+    public ResponseEntity<Page<Post>> findByPeriod(@PathVariable String minDataPost, @PathVariable String maxDataPostr,Pageable pageable) {
+        Page<Post> posts = postService.findByPeriod(minDataPost,maxDataPostr,pageable);
+        return ResponseEntity.ok().body(posts);
+    }
+
+     */
 
 }

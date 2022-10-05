@@ -1,5 +1,7 @@
 package com.anasantanapedrosaprdro.dassblogs.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -21,7 +23,7 @@ public class Comentario implements Serializable {
     @ManyToOne
     @JoinColumn(name = "idPost")
     private Post post;
-    @OneToMany(cascade = {CascadeType.REFRESH},fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "comentario")
     private List<Respota>respotas=new ArrayList<>();
 
     public Comentario(){

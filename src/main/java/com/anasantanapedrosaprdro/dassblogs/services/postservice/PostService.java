@@ -46,8 +46,13 @@ public class PostService {
     }
 
 
-    public Page<Post> searchDataPost(LocalDateTime minDataPost, LocalDateTime maxDataPost, Pageable pageable) {
-        Page<Post> posts=postRepository.searchPost(minDataPost,maxDataPost,pageable);
+    public Page<Post>findByCreatedDateBetween (String minDataPost, String maxDataPost, Pageable pageable) {
+        Page<Post> posts=postRepository.findByPeriod(minDataPost,maxDataPost,pageable);
+        return posts;
+    }
+
+    public Page<Post> findByPeriod(String minDataapaost, String maxDataPost,Pageable pageable) {
+        Page<Post> posts=postRepository.findByPeriod(minDataapaost,maxDataPost,pageable);
         return posts;
     }
 }
