@@ -22,6 +22,7 @@ public class Comentario implements Serializable {
     private LocalDateTime dataComentario;
     @ManyToOne
     @JoinColumn(name = "idPost")
+    @JsonIgnore
     private Post post;
     @OneToMany(mappedBy = "comentario")
     private List<Respota>respotas=new ArrayList<>();

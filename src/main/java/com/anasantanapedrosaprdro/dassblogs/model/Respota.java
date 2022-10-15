@@ -19,6 +19,7 @@ public class Respota implements Serializable {
     @Column
     private LocalDateTime dataResposta;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "idComentario")
     private Comentario comentario;
 

@@ -1,12 +1,11 @@
 package com.anasantanapedrosaprdro.dassblogs.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,15 +19,19 @@ public class Post implements Serializable {
     @Column(nullable = false)
     private String autor;
     @Column(nullable = false)
+
     private String titulo;
     @Lob
     private String texto;
     @Column
     private LocalDateTime dataPost;
-    @ManyToMany
-    @JoinTable(name = "tb_post_category",joinColumns = @JoinColumn(name = "post_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private List<Categoria>categorias=new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "pais_id")
+    private Pais pais;
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    @JsonIgnore
+    private Categoria categoria;
 
     @OneToMany (mappedBy = "post")
     private List<Comentario> comentarios=new ArrayList<>();
@@ -37,14 +40,14 @@ public class Post implements Serializable {
     public Post(){
     }
 
-    public Post(long id, String autor, String titulo, String texto, LocalDateTime dataPost, List<Categoria> categorias, List<Comentario> comentarios) {
+
+    public Post(long id, String autor, String titulo, String texto, LocalDateTime dataPost, Categoria categoria) {
         this.id = id;
         this.autor = autor;
         this.titulo = titulo;
         this.texto = texto;
         this.dataPost = dataPost;
-        this.categorias = categorias;
-        this.comentarios = comentarios;
+        this.categoria = categoria;
 
     }
 
@@ -56,7 +59,7 @@ public class Post implements Serializable {
                 ", titulo='" + titulo + '\'' +
                 ", texto='" + texto + '\'' +
                 ", dataPost=" + dataPost +
-                ", categorias=" + categorias +
+                ", categoria=" + categoria +
                 ", comentarios=" + comentarios +
                 '}';
     }
@@ -66,12 +69,12 @@ public class Post implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Post)) return false;
         Post post = (Post) o;
-        return getId() == post.getId() && Objects.equals(getAutor(), post.getAutor()) && Objects.equals(getTitulo(), post.getTitulo()) && Objects.equals(getTexto(), post.getTexto()) && Objects.equals(getDataPost(), post.getDataPost()) && Objects.equals(getCategorias(), post.getCategorias()) && Objects.equals(getComentarios(), post.getComentarios());
+        return getId() == post.getId() && Objects.equals(getAutor(), post.getAutor()) && Objects.equals(getTitulo(), post.getTitulo()) && Objects.equals(getTexto(), post.getTexto()) && Objects.equals(getDataPost(), post.getDataPost()) && Objects.equals(getCategoria(), post.getCategoria()) && Objects.equals(getComentarios(), post.getComentarios());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getAutor(), getTitulo(), getTexto(), getDataPost(), getCategorias(), getComentarios());
+        return Objects.hash(getId(), getAutor(), getTitulo(), getTexto(), getDataPost(), getCategoria(), getComentarios());
     }
 
     public long getId() {
@@ -114,13 +117,18 @@ public class Post implements Serializable {
         this.dataPost = dataPost;
     }
 
-    public List<Categoria> getCategorias() {
-        return categorias;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
 
     public List<Comentario> getComentarios() {
         return comentarios;
     }
- }
+
+
+}
 
