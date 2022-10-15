@@ -18,9 +18,9 @@ public class Categoria implements Serializable {
     private String nome;
     @Column
     private LocalDateTime dataCategoria;
-    @JsonIgnore
     @ManyToMany(mappedBy = "categorias")
-    private Set<Post> posts=new HashSet<>();
+    @JsonIgnore
+    private List<Post> posts=new ArrayList<>();
 
     public Categoria(){
     }

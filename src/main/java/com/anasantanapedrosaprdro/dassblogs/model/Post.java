@@ -5,7 +5,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "post_tb")
@@ -25,31 +28,45 @@ public class Post implements Serializable {
     @ManyToMany
     @JoinTable(name = "tb_post_category",joinColumns = @JoinColumn(name = "post_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private List<Categoria>categorias=new ArrayList<>();
+
+    @OneToMany (mappedBy = "post")
     private List<Comentario> comentarios=new ArrayList<>();
 
 
     public Post(){
     }
 
-    public Post(long id, String autor, String titulo, String texto, LocalDateTime dataPost, List<Comentario> comentarios) {
+    public Post(long id, String autor, String titulo, String texto, LocalDateTime dataPost, List<Categoria> categorias, List<Comentario> comentarios) {
         this.id = id;
         this.autor = autor;
         this.titulo = titulo;
         this.texto = texto;
         this.dataPost = dataPost;
+        this.categorias = categorias;
         this.comentarios = comentarios;
+
     }
 
-
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", autor='" + autor + '\'' +
+                ", titulo='" + titulo + '\'' +
+                ", texto='" + texto + '\'' +
+                ", dataPost=" + dataPost +
+                ", categorias=" + categorias +
+                ", comentarios=" + comentarios +
+                '}';
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Post)) return false;
         Post post = (Post) o;
-        return getId() == post.getId() && Objects.equals(getAutor(), post.getAutor()) && Objects.equals(getTitulo(),
-                post.getTitulo()) && Objects.equals(getTexto(), post.getTexto()) && Objects.equals(getDataPost(), post.getDataPost())
-                && Objects.equals(getCategorias(), post.getCategorias()) && Objects.equals(getComentarios(), post.getComentarios());
+        return getId() == post.getId() && Objects.equals(getAutor(), post.getAutor()) && Objects.equals(getTitulo(), post.getTitulo()) && Objects.equals(getTexto(), post.getTexto()) && Objects.equals(getDataPost(), post.getDataPost()) && Objects.equals(getCategorias(), post.getCategorias()) && Objects.equals(getComentarios(), post.getComentarios());
     }
 
     @Override
@@ -97,8 +114,8 @@ public class Post implements Serializable {
         this.dataPost = dataPost;
     }
 
-    public Set<Categoria> getCategorias() {
-        return getCategorias();
+    public List<Categoria> getCategorias() {
+        return categorias;
     }
 
 
