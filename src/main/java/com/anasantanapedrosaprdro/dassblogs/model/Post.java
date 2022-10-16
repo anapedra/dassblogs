@@ -30,7 +30,7 @@ public class Post implements Serializable {
     private Pais pais;
     @ManyToOne
     @JoinColumn(name = "categoria_id")
-    @JsonIgnore
+
     private Categoria categoria;
 
     @OneToMany (mappedBy = "post")
