@@ -13,7 +13,7 @@ import javax.validation.Valid;
 
 @RestController
 @CrossOrigin(origins = "*",maxAge = 3600)
-@RequestMapping("/categoria")
+@RequestMapping("/categorias")
 public class CategoriaController {
 
     final CategoriaService categoriaService;
