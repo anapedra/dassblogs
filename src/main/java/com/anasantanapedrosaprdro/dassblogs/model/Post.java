@@ -24,8 +24,8 @@ public class Post implements Serializable {
     @ManyToOne
     @JoinColumn(name = "pais_id")
     private Pais pais;
-    @ManyToMany(mappedBy = "posts")
-   // @JoinTable(name = "tb_post_categoria",joinColumns = @JoinColumn(name = "post_id"),inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+    @ManyToMany
+    @JoinTable(name = "tb_post_categoria",joinColumns = @JoinColumn(name = "post_id"),inverseJoinColumns = @JoinColumn(name = "categoria_id"))
     private Set<Categoria> categorias=new HashSet<>();
     @OneToMany (mappedBy = "post")
     private List<Comentario> comentarios=new ArrayList<>();

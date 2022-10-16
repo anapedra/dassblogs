@@ -18,8 +18,9 @@ public class Categoria implements Serializable {
     private String nome;
     @Column
     private LocalDateTime dataCategoria;
-    @ManyToMany
-    @JoinTable(name = "tb_categoria_posts",joinColumns = @JoinColumn(name = "categoria_id"),inverseJoinColumns = @JoinColumn(name = "post_id"))
+    @ManyToMany(mappedBy = "categorias")
+    @JsonIgnore
+   // @JoinTable(name = "tb_categoria_posts",joinColumns = @JoinColumn(name = "categoria_id"),inverseJoinColumns = @JoinColumn(name = "post_id"))
     private Set<Post> posts=new HashSet<>();
 
     public Categoria(){
