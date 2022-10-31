@@ -3,15 +3,16 @@ package com.anasantanapedrosaprdro.dassblogs.DTOs.categoriaDTO;
 import com.anasantanapedrosaprdro.dassblogs.model.Post;
 
 import javax.validation.constraints.NotBlank;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 public class CategoriaDTO {
 
     @NotBlank
     private String nome;
-    private Set<Post>posts=new HashSet<>();
+    private List<Post>posts=new ArrayList<>();
+
 
     public CategoriaDTO(){
     }
@@ -20,12 +21,12 @@ public class CategoriaDTO {
         this.nome = nome;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof CategoriaDTO)) return false;
-        CategoriaDTO that = (CategoriaDTO) o;
-        return Objects.equals(getNome(), that.getNome()) && Objects.equals(getPosts(), that.getPosts());
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     @Override
@@ -37,19 +38,21 @@ public class CategoriaDTO {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CategoriaDTO)) return false;
+        CategoriaDTO that = (CategoriaDTO) o;
+        return Objects.equals(getNome(), that.getNome()) && Objects.equals(getPosts(), that.getPosts());
+    }
+
+    @Override
     public int hashCode() {
-        return Objects.hash(getNome());
+        return Objects.hash(getNome(), getPosts());
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public Set<Post> getPosts() {
+    public List<Post> getPosts() {
         return posts;
     }
+
 }
+

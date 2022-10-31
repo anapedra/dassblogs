@@ -13,13 +13,14 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 @Service
+@Transactional
 public class PostService {
 
     final PostRepository postRepository;
     public PostService(PostRepository postRepository) {
         this.postRepository = postRepository;
     }
-    @Transactional
+
     public Post savePost(Post post){
         post.setDataPost(LocalDateTime.now(ZoneId.of("UTC")));
       return    postRepository.save(post);
@@ -32,14 +33,14 @@ public class PostService {
         Page<Post>posts=postRepository.findAll(pageable);
         return posts;
     }
-    @Transactional
+
     public Post atualizarPost(Long id,Post post){
         Post postar= findById(id);
         BeanUtils.copyProperties(post,postar,"id");
         post.setId(id);
         return postRepository.save(postar);
     }
-    @Transactional
+
     public void dalatarPost(Long id){
         findById(id);
         postRepository.deleteById(id);

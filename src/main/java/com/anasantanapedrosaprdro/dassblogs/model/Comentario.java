@@ -14,7 +14,7 @@ import java.util.Objects;
 public class Comentario implements Serializable {
     private static final long serialVersionUID=1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column
     private String texto;
@@ -30,12 +30,12 @@ public class Comentario implements Serializable {
     public Comentario(){
     }
 
-    public Comentario(long id, String texto, LocalDateTime dataComentario, Post post, List<Respota> respotas) {
+    public Comentario(long id, String texto, LocalDateTime dataComentario, Post post) {
         this.id = id;
         this.texto = texto;
         this.dataComentario = dataComentario;
         this.post = post;
-        this.respotas = respotas;
+
     }
 
     @Override
@@ -98,7 +98,5 @@ public class Comentario implements Serializable {
         return respotas;
     }
 
-    public void setRespotas(List<Respota> respotas) {
-        this.respotas = respotas;
-    }
+
 }

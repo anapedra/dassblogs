@@ -15,13 +15,14 @@ import java.time.ZoneId;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class ComentarioService {
 
     final ComentarioRepository comentarioRepository;
     public ComentarioService(ComentarioRepository comentarioRepository) {
         this.comentarioRepository = comentarioRepository;
     }
-    @Transactional
+
     public Comentario seveCoentario(Comentario comentario){
         comentario.setDataComentario(LocalDateTime.now(ZoneId.of("UTC")));
         return comentarioRepository.save(comentario);
@@ -35,14 +36,14 @@ public class ComentarioService {
         Page<Comentario>comentarios=comentarioRepository.findAll(pageable);
         return comentarios;
     }
-    @Transactional
+
     public Comentario atualizarComentario(Long id,Comentario comentario){
         Comentario comenta=findById(id);
         BeanUtils.copyProperties(comentario,comenta,"id");
         comentario.setId(id);
         return comentarioRepository.save(comentario);
     }
-    @Transactional
+
     public void delatarComentario(Long id){
         findById(id);
         comentarioRepository.deleteById(id);

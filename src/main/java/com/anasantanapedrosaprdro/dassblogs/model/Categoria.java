@@ -8,20 +8,29 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
-@Table(name = "categoria_tb")
+@Table(name = "categoria_tb" )
 public class Categoria implements Serializable {
+
+
     private static final long serialVersionUID=1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(nullable = false)
     private String nome;
     @Column
     private LocalDateTime dataCategoria;
-    @ManyToMany(mappedBy = "categorias")
+    @OneToMany(mappedBy = "categoria")
     @JsonIgnore
-   // @JoinTable(name = "tb_categoria_posts",joinColumns = @JoinColumn(name = "categoria_id"),inverseJoinColumns = @JoinColumn(name = "post_id"))
-    private Set<Post> posts=new HashSet<>();
+    private List<Post>posts=new ArrayList<>();
+
+
+
+
+    //  @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  //@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "categorias")
+ // @JsonIgnore
+
 
     public Categoria(){
     }
@@ -30,30 +39,20 @@ public class Categoria implements Serializable {
         this.id = id;
         this.nome = nome;
         this.dataCategoria = dataCategoria;
+
     }
 
-    @Override
-    public String toString() {
-        return "Categoria{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", dataCategoria=" + dataCategoria +
-                '}';
+    public long getId() {
+        return id;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Categoria)) return false;
-        Categoria categoria = (Categoria) o;
-        return getId() == categoria.getId() && Objects.equals(getNome(), categoria.getNome()) && Objects.equals(getDataCategoria(), categoria.getDataCategoria());
+    public String getNome() {
+        return nome;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getNome(), getDataCategoria());
+    public LocalDateTime getDataCategoria() {
+        return dataCategoria;
     }
-
     public void setId(long id) {
         this.id = id;
     }
@@ -66,19 +65,31 @@ public class Categoria implements Serializable {
         this.dataCategoria = dataCategoria;
     }
 
-    public long getId() {
-        return id;
+    @Override
+    public String toString() {
+        return "Categoria{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", dataCategoria=" + dataCategoria +
+                ", posts=" + posts +
+                '}';
     }
 
-    public String getNome() {
-        return nome;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Categoria)) return false;
+        Categoria categoria = (Categoria) o;
+        return getId() == categoria.getId() && Objects.equals(getNome(), categoria.getNome()) && Objects.equals(getDataCategoria(), categoria.getDataCategoria()) && Objects.equals(getPosts(), categoria.getPosts());
     }
 
-    public Set<Post> getPosts() {
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getNome(), getDataCategoria(), getPosts());
+    }
+
+    public List<Post> getPosts() {
         return posts;
     }
 
-    public LocalDateTime getDataCategoria() {
-        return dataCategoria;
-    }
 }

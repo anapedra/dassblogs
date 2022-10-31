@@ -13,13 +13,14 @@ import java.time.ZoneId;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class CategoriaService {
 
     final CategoriaRepository categoriaRepository;
     public CategoriaService(CategoriaRepository categoriaRepository) {
         this.categoriaRepository = categoriaRepository;
     }
-    @Transactional
+
     public Categoria savarCategoria(Categoria categoria){
         categoria.setDataCategoria(LocalDateTime.now(ZoneId.of("UTC")));
       return   categoriaRepository.save(categoria);
@@ -34,14 +35,14 @@ public class CategoriaService {
         Page<Categoria>categorias=categoriaRepository.findAll(pageable);
         return categorias;
     }
-    @Transactional
+
     public Categoria atualizarCategoria(Long id, Categoria categoria){
         Categoria categ= findByid(id);
         BeanUtils.copyProperties(categoria,categ,"id");
         categoria.setId(id);
         return categoriaRepository.save(categoria);
     }
-    @Transactional
+
     public void deletarCategoria(Long id){
          findByid(id);
         categoriaRepository.deleteById(id);
