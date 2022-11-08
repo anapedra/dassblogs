@@ -28,6 +28,7 @@ public class PostService {
     public Post findById(Long id){
         return postRepository.findById(id).orElseThrow(
                 ()-> new EntityNotFoundExcepion("Id "+id+" not found"));
+
     }
     public Page<Post> findAll(Pageable pageable){
         Page<Post>posts=postRepository.findAll(pageable);
